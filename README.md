@@ -192,18 +192,18 @@ public class QueueProcessor {
   - Метод `processPoints(List<Point> points)` обрабатывает точки, формирует уникальные точки и сортирует по X.
   - Отрицательные Y преобразуются в положительные.
   ```java
-  public class Point {
+public class Point {
     int x, y;
     public Point(int x, int y) { this.x=x; this.y=y; }
     @Override
     public String toString() { return "{" + x + ";" + y + "}"; }
 }
-  public class Polyline {
-    List<Point> points;
-    public Polyline(List<Point> points) { this.points = points; }
-    @Override
-    public String toString() { return "Линия " + points; }
-  }
+public class Polyline {
+  List<Point> points;
+  public Polyline(List<Point> points) { this.points = points; }
+  @Override
+  public String toString() { return "Линия " + points; }
+}
 public class StreamProcessor {
   public static Polyline processPoints(List<Point> points) {
       List<Point> processed = points.stream()
