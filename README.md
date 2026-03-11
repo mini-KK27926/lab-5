@@ -198,22 +198,22 @@ public class QueueProcessor {
     @Override
     public String toString() { return "{" + x + ";" + y + "}"; }
 }
-public class Polyline {
+  public class Polyline {
     List<Point> points;
     public Polyline(List<Point> points) { this.points = points; }
     @Override
     public String toString() { return "Линия " + points; }
-}
+  }
 public class StreamProcessor {
-    public static Polyline processPoints(List<Point> points) {
-        List<Point> processed = points.stream()
-                .distinct()
-                .sorted(Comparator.comparingInt(p -> p.x))
-                .map(p -> new Point(p.x, Math.abs(p.y)))
-                .collect(Collectors.toList());
-        return new Polyline(processed);
-    }
+  public static Polyline processPoints(List<Point> points) {
+      List<Point> processed = points.stream()
+              .distinct()
+              .sorted(Comparator.comparingInt(p -> p.x))
+              .map(p -> new Point(p.x, Math.abs(p.y)))
+              .collect(Collectors.toList());
+      return new Polyline(processed);
+  }
 }
 ```
-```
+
 
