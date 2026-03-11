@@ -191,7 +191,7 @@ public class QueueProcessor {
 - Класс `StreamProcessor`:
   - Метод `processPoints(List<Point> points)` обрабатывает точки, формирует уникальные точки и сортирует по X.
   - Отрицательные Y преобразуются в положительные.
-  ```java
+```java
 public class Point {
     int x, y;
     public Point(int x, int y) { this.x=x; this.y=y; }
