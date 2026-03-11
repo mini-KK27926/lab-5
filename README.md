@@ -94,7 +94,42 @@ public class Fraction implements FractionInterface {
   - Метод `getMeowCount()` возвращает количество мяуканий.
 - Класс `MeowProcessor`:
   - Метод `meowAll(Meowable... cats)` вызывает `meow()` у всех переданных объектов.
+ ```java
+public interface Meowable {
+    void meow();
+}
 
+public class MeowProcessor {
+    public static void meowAll(Meowable... cats) {
+        for (Meowable c : cats) {
+            c.meow();
+        }
+    }
+}
+public class Cat implements Meowable {
+    private String name;
+    private int meowCount = 0;
+
+    public Cat(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void meow() {
+        meowCount++;
+        System.out.println(name + ": мяу!");
+    }
+
+    public int getMeowCount() {
+        return meowCount;
+    }
+
+    @Override
+    public String toString() {
+        return "Кот: " + name;
+    }
+}
+```
 ---
 
 ### Задание 4. Мап (логины учеников)
@@ -109,17 +144,42 @@ public class Fraction implements FractionInterface {
   - Метод `generateLogins(List<String> students)` создает логины по фамилии.
   - Для повторяющихся фамилий добавляется порядковый номер.
 - Используется `Map` для учета количества встреч фамилий.
+```java
+public class LoginGenerator {
+    public static void generateLogins(List<String> names) {
+        Map<String, Integer> count = new HashMap<>();
+        for (String fullName : names) {
+            String surname = fullName.split(" ")[0];
+            count.put(surname, count.getOrDefault(surname, 0) + 1);
+            if (count.get(surname) == 1) {
+                System.out.println(surname);
+            } else {
+                System.out.println(surname + count.get(surname));
+            }
+        }
+    }
+}
+
+```
 
 ---
 
 ### Задание 6. Очередь
-1 Напечатать в обратном порядке элементы непустой очереди L.
-
+Составить программу, которая удаляет из списка L все элементы E, если такие есть.
 ### Решение
 - Класс `QueueProcessor`:
   - Метод `printReverse(Queue<T> queue)` выводит элементы в обратном порядке.
 - Используется `Stack` или `LinkedList` для реверса очереди.
+```java
+public class QueueProcessor {
+    public static <T> void printReverse(Queue<T> queue) {
+        List<T> list = new ArrayList<>(queue);
+        Collections.reverse(list);
+        System.out.println(list);
+    }
+}
 
+```
 ---
 
 ### Задание 7. Стрим
@@ -131,4 +191,28 @@ public class Fraction implements FractionInterface {
 - Класс `StreamProcessor`:
   - Метод `processPoints(List<Point> points)` обрабатывает точки, формирует уникальные точки и сортирует по X.
   - Отрицательные Y преобразуются в положительные.
+  ```java
+  public class Point {
+    int x, y;
+    public Point(int x, int y) { this.x=x; this.y=y; }
+    @Override
+    public String toString() { return "{" + x + ";" + y + "}"; }
+}
+public class Polyline {
+    List<Point> points;
+    public Polyline(List<Point> points) { this.points = points; }
+    @Override
+    public String toString() { return "Линия " + points; }
+}
+public class StreamProcessor {
+    public static Polyline processPoints(List<Point> points) {
+        List<Point> processed = points.stream()
+                .distinct()
+                .sorted(Comparator.comparingInt(p -> p.x))
+                .map(p -> new Point(p.x, Math.abs(p.y)))
+                .collect(Collectors.toList());
+        return new Polyline(processed);
+    }
+}
+```
 
